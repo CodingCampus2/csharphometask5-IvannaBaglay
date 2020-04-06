@@ -7,34 +7,26 @@ namespace HomeworkTemplate
 {
     class SuperVirus: Task5.Virus
     {
-        private readonly Task5 task5;
-        public SuperVirus(Task5 task) 
+        private float m_KillProbability = 0;
+        private string m_Name = "";
+        public SuperVirus() 
             : base (false)
         {
-            task5 = task;
         }
         public override float KillProbability
         {
-            get
-            {
-                float returnKillProbability = task5.KillProbability * 2.0f;
-                return (returnKillProbability > 1.0f) ? 1.0f : returnKillProbability;
-            }
+            get => m_KillProbability;
             set
             {
-
+                m_KillProbability = ( 2.0f * value > 1.0f)? 1.0f: 2.0f * value;
             }
         }
         public override string Name 
-        { 
-            get
-            {
-                string newName = task5.VirusName;
-                return newName.Replace("virus", "supervirus");
-            }
+        {
+            get => m_Name;
             set
             {
-
+                m_Name = value.Replace("virus", "supervirus");
             }
         }
 
@@ -54,7 +46,7 @@ namespace HomeworkTemplate
         {
             Func<Task5, Task5.Virus> TaskSolver = task =>
             {
-                Task5.Virus virus = new SuperVirus(task);
+                Task5.Virus virus = new SuperVirus();
                 return virus;
             };
             Task5.CheckSolver(TaskSolver);
